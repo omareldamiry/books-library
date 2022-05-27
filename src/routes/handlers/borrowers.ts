@@ -13,13 +13,23 @@ const index = async (_req: express.Request, _res: express.Response) => {
     }
 };
 
+const find = async (_req: express.Request, _res: express.Response) => {
+    try {
+        const id = parseInt(_req.params.id);
+        const borrower = store.find(id);
+        _res.json(borrower);
+    } catch (error: any) {
+        _res.status(404).json({ message: error.message });
+    }
+};
+
 const create = async (_req: express.Request, _res: express.Response) => {
     try {
         const borrower = _req.body;
         const newBorrower = store.create(borrower);
         _res.json(newBorrower);
-    } catch (error) {
-        
+    } catch (error: any) {
+        _res.status(400).json({ message: error.message });
     }
 };
 const update = async (_req: express.Request, _res: express.Response) => {
@@ -28,8 +38,8 @@ const update = async (_req: express.Request, _res: express.Response) => {
         const borrower = _req.body;
         const updatedBorrower = store.update(id, borrower);
         _res.json(updatedBorrower);
-    } catch (error) {
-        
+    } catch (error: any) {
+        _res.status(400).json({ message: error.message });
     }
 };
 const remove = async (_req: express.Request, _res: express.Response) => {
@@ -37,13 +47,14 @@ const remove = async (_req: express.Request, _res: express.Response) => {
         const id = parseInt(_req.params.id);
         const deletedBorrower = store.delete(id);
         _res.json(deletedBorrower);
-    } catch (error) {
-        
+    } catch (error: any) {
+        _res.status(400).json({ message: error.message });
     }
 };
 
 borrower_routes.get('/', index);
 borrower_routes.post('/', create);
+borrower_routes.get('/:id', find);
 borrower_routes.put('/:id', update);
 borrower_routes.delete('/:id', remove);
 

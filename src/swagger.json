@@ -1,0 +1,542 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Books Library",
+    "description": "An API for accessing and managing data for a library",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Books",
+      "description": "API for books in the system"
+    },
+    {
+      "name": "Authors",
+      "description": "API for authors in the system"
+    },
+    {
+      "name": "Borrowers",
+      "description": "API for the borrowers in the system"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "description": "Current displayed page of books (defaults to 1)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "Number of books per page (defaults to 5)",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "summary": "Get all books in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          },
+          "404": {
+            "description":"Not found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "parameters": [
+          {
+            "name": "book",
+            "in": "body",
+            "required": true,
+            "description": "The new book entity to be added to the system",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "summary": "Add new book to the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the book",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "summary": "Get an existing book by ID",
+        "tags": ["Books"],
+        "responses": {
+          "200": {
+            "description": "Book is found",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "404": {
+            "description": "Book not found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing book",
+        "tags": [
+          "Books"
+        ],
+        "parameters": [
+          {
+            "name": "book",
+            "in": "body",
+            "description": "The updated book entity",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book is updated",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Error: Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete book with given ID",
+        "tags": [
+          "Books"
+        ],
+        "responses": {
+          "200": {
+            "description": "Book is deleted",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description":"Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/authors": {
+      "get": {
+        "tags": [
+          "Authors"
+        ],
+        "summary": "Get all authors in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Author"
+              }
+            }
+          },
+          "404": {
+            "description":"Not found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Authors"
+        ],
+        "parameters": [
+          {
+            "name": "author",
+            "in": "body",
+            "required": true,
+            "description": "The new author entity to be added to the system",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        ],
+        "summary": "Add new author to the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "400": {
+            "description":"Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/authors/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the author",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "summary": "Get an existing author by ID",
+        "tags": ["Authors"],
+        "responses": {
+          "200": {
+            "description": "Author is found",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "404": {
+            "description": "Author not found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing author",
+        "tags": [
+          "Authors"
+        ],
+        "parameters": [
+          {
+            "name": "author",
+            "in": "body",
+            "description": "The updated author entity",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Author is updated",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "400": {
+            "description":"Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete author with given ID",
+        "tags": [
+          "Authors"
+        ],
+        "responses": {
+          "200": {
+            "description": "Author is deleted",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "400": {
+            "description": "Author has published books on the system",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/borrowers": {
+      "get": {
+        "tags": [
+          "Borrowers"
+        ],
+        "summary": "Get all borrowers in the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Borrower"
+              }
+            }
+          },
+          "404": {
+            "description":"Not found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Borrowers"
+        ],
+        "parameters": [
+          {
+            "name": "borrower",
+            "in": "body",
+            "required": true,
+            "description": "The new borrower entity to be added to the system",
+            "schema": {
+              "$ref": "#/definitions/Borrower"
+            }
+          }
+        ],
+        "summary": "Add new borrower to the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Borrower"
+            }
+          },
+          "400": {
+            "description":"Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/borrowers/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The id of the borrower",
+          "type": "integer"
+        }
+      ],
+      "get": {
+        "summary": "Get an existing borrower by ID",
+        "tags": ["Borrowers"],
+        "responses": {
+          "200": {
+            "description": "Borrower is found",
+            "schema": {
+              "$ref": "#/definitions/Borrower"
+            }
+          },
+          "404": {
+            "description": "Borrower not found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing borrower",
+        "tags": [
+          "Borrowers"
+        ],
+        "parameters": [
+          {
+            "name": "borrower",
+            "in": "body",
+            "description": "The updated borrower entity",
+            "schema": {
+              "$ref": "#/definitions/Borrower"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Borrower is updated",
+            "schema": {
+              "$ref": "#/definitions/Borrower"
+            }
+          },
+          "400": {
+            "description":"Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete borrower with given ID",
+        "tags": [
+          "Borrowers"
+        ],
+        "responses": {
+          "200": {
+            "description": "Borrower is deleted",
+            "schema": {
+              "$ref": "#/definitions/Borrower"
+            }
+          },
+          "400": {
+            "description":"Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Author": {
+      "required": [
+        "firstname",
+        "lastname"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        }
+      }
+    },
+    "Book": {
+      "required": [
+        "title",
+        "pages",
+        "language",
+        "isbn",
+        "authors"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "number"
+        },
+        "language": {
+          "type": "string"
+        },
+        "isbn": {
+          "type": "number"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "Borrower": {
+      "required": [
+        "firstname",
+        "lastname",
+        "books"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ]
+}

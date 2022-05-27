@@ -15,6 +15,21 @@ export class AuthorStore {
             throw new Error("Could not fetch authors");
         }
     }
+
+    find(id: number): Author {
+        try {
+            const author = database.library.authors.find(author => author.id == id);
+
+            if(!author) {
+                throw {};
+            }
+
+            return author as Author;
+        } catch (error) {
+            throw new Error("Could not find author");
+        }
+    }
+
     create(author: Author): Author {
         try {
             const id = database.library.authors.length;

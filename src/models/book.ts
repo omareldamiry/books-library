@@ -21,6 +21,20 @@ export class BookStore {
         }
     }
 
+    find(id: number): Book {
+        try {
+            const book = database.library.books.find(book => book.id == id);
+
+            if(!book) {
+                throw {};
+            }
+
+            return book as Book;
+        } catch (error) {
+            throw new Error("Could not find book");
+        }
+    }
+
     create(book: Book): Book {
         try {
             const id = database.library.books.length;

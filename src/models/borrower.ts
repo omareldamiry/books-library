@@ -17,6 +17,21 @@ export class BorrowerStore {
             throw new Error("Could not fetch borrowers");
         }
     }
+
+    find(id: number): Borrower {
+        try {
+            const borrower = database.library.borrowers.find(borrower => borrower.id == id);
+
+            if(!borrower) {
+                throw {};
+            }
+
+            return borrower as Borrower;
+        } catch (error) {
+            throw new Error("Could not find borrower");
+        }
+    }
+
     create(borrower: Borrower): Borrower {
         try {
             const id = database.library.borrowers.length;

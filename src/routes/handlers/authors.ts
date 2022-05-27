@@ -14,13 +14,23 @@ const index = async (_req: express.Request, _res: express.Response) => {
     }
 };
 
+const find = async (_req: express.Request, _res: express.Response) => {
+    try {
+        const id = parseInt(_req.params.id);
+        const author = store.find(id);
+        _res.json(author);
+    } catch (error: any) {
+        _res.status(404).json({ message: error.message });
+    }
+};
+
 const create = async (_req: express.Request, _res: express.Response) => {
     try {
         const author = _req.body;
         const newAuthor = store.create(author);
         _res.json(newAuthor);
-    } catch (error) {
-        
+    } catch (error: any) {
+        _res.status(400).json({ message: error.message });
     }
 };
 const update = async (_req: express.Request, _res: express.Response) => {
@@ -29,8 +39,8 @@ const update = async (_req: express.Request, _res: express.Response) => {
         const author = _req.body;
         const updatedAuthor = store.update(id, author);
         _res.json(updatedAuthor);
-    } catch (error) {
-        
+    } catch (error: any) {
+        _res.status(400).json({ message: error.message });
     }
 };
 const remove = async (_req: express.Request, _res: express.Response) => {
@@ -45,6 +55,7 @@ const remove = async (_req: express.Request, _res: express.Response) => {
 
 author_routes.get('/', index);
 author_routes.post('/', create);
+author_routes.get('/:id', find);
 author_routes.put('/:id', update);
 author_routes.delete('/:id', remove);
 
