@@ -4,7 +4,6 @@ import { AuthorStore } from "../../models/author";
 const store = new AuthorStore();
 const author_routes = express.Router();
 
-
 const index = async (_req: express.Request, _res: express.Response) => {
     try {
         const authors = store.index();
@@ -27,26 +26,28 @@ const find = async (_req: express.Request, _res: express.Response) => {
 const create = async (_req: express.Request, _res: express.Response) => {
     try {
         const author = _req.body;
-        const newAuthor = store.create(author);
+        const newAuthor = await store.create(author);
         _res.json(newAuthor);
     } catch (error: any) {
         _res.status(400).json({ message: error.message });
     }
 };
+
 const update = async (_req: express.Request, _res: express.Response) => {
     try {
         const id = parseInt(_req.params.id);
         const author = _req.body;
-        const updatedAuthor = store.update(id, author);
+        const updatedAuthor = await store.update(id, author);
         _res.json(updatedAuthor);
     } catch (error: any) {
         _res.status(400).json({ message: error.message });
     }
 };
+
 const remove = async (_req: express.Request, _res: express.Response) => {
     try {
         const id = parseInt(_req.params.id);
-        const deletedAuthor = store.delete(id);
+        const deletedAuthor = await store.delete(id);
         _res.json(deletedAuthor);
     } catch (error: any) {
         _res.status(400).json({ message: error.message });

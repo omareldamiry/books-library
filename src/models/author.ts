@@ -1,4 +1,5 @@
 import * as database from "../database/database.json";
+import fs from "fs/promises";
 
 export type Author = {
     id: number;
@@ -20,7 +21,7 @@ export class AuthorStore {
         try {
             const author = database.library.authors.find(author => author.id == id);
 
-            if(!author) {
+            if (!author) {
                 throw {};
             }
 
@@ -30,36 +31,44 @@ export class AuthorStore {
         }
     }
 
-    create(author: Author): Author {
+    async create(author: Author): Promise<Author> {
         try {
             const id = database.library.authors.length;
-            const newAuthor = {...author, id: id};
+            const newAuthor = { ...author, id: id };
             database.library.authors.push(newAuthor);
+
+            await fs.writeFile("./src/database/database.json", JSON.stringify(database));;
 
             return newAuthor;
         } catch (error) {
             throw new Error("Could not create author");
         }
     }
-    update(id: number, author: Author): Author {
+
+    async update(id: number, author: Author): Promise<Author> {
         try {
             const index = database.library.authors.findIndex(author => author.id == id);
-            const updatedAuthor = {...database.library.authors[index], ...author};
+            const updatedAuthor = { ...database.library.authors[index], ...author };
             database.library.authors[index] = updatedAuthor;
-            
+
+            await fs.writeFile("./src/database/database.json", JSON.stringify(database));
+
             return updatedAuthor;
         } catch (error) {
             throw new Error("Could not update author");
         }
     }
-    delete(id: number): Author {
+
+    async delete(id: number): Promise<Author> {
         try {
             const index = database.library.authors.findIndex(author => author.id == id);
             const author_books = database.library.books.filter(book => book.authors.includes(id));
-            
-            if(author_books.length != 0) throw {};
+
+            if (author_books.length != 0) throw {};
 
             const deletedAuthor = database.library.authors.splice(index, 1);
+
+            await fs.writeFile("./src/database/database.json", JSON.stringify(database));
 
             return deletedAuthor[0] as Author;
         } catch (error) {

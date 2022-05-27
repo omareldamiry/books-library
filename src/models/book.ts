@@ -1,6 +1,7 @@
 import * as database from "../database/database.json";
+import fs from 'fs/promises';
 
-export type Book  = {
+export type Book = {
     id: number;
     title: string;
     language: 'ar' | 'en';
@@ -10,9 +11,9 @@ export type Book  = {
 };
 
 export class BookStore {
-    index(pageNumber: number, pageSize:number): Book[] {
-        const pageStart = pageNumber*pageSize;
-        const pageEnd = pageNumber*pageSize + pageSize;
+    index(pageNumber: number, pageSize: number): Book[] {
+        const pageStart = pageNumber * pageSize;
+        const pageEnd = pageNumber * pageSize + pageSize;
         try {
             const books = database.library.books.slice(pageStart, pageEnd) as Book[];
             return books;
@@ -25,7 +26,7 @@ export class BookStore {
         try {
             const book = database.library.books.find(book => book.id == id);
 
-            if(!book) {
+            if (!book) {
                 throw {};
             }
 
@@ -35,11 +36,13 @@ export class BookStore {
         }
     }
 
-    create(book: Book): Book {
+    async create(book: Book): Promise<Book> {
         try {
             const id = database.library.books.length;
-            const newBook: Book = {...book, id: id};
-            database.library.books.push(newBook); 
+            const newBook: Book = { ...book, id: id };
+            database.library.books.push(newBook);
+
+            await fs.writeFile("./src/database/database.json", JSON.stringify(database));
 
             return newBook;
         } catch (error) {
@@ -47,22 +50,26 @@ export class BookStore {
         }
     }
 
-    update(id: number, book: Book): Book {
+    async update(id: number, book: Book): Promise<Book> {
         try {
             const i = database.library.books.findIndex(book => book.id == id);
-            const updatedBook = {...database.library.books[i], ...book};
+            const updatedBook = { ...database.library.books[i], ...book };
             database.library.books[i] = updatedBook;
-            
+
+            await fs.writeFile("./src/database/database.json", JSON.stringify(database));
+
             return updatedBook;
         } catch (error) {
             throw new Error("Could not update book");
         }
     }
 
-    delete(id: number): Book {
+    async delete(id: number): Promise<Book> {
         try {
             const i = database.library.books.findIndex(book => book.id == id);
             const deletedBooks = database.library.books.splice(i, 1);
+
+            await fs.writeFile("./src/database/database.json", JSON.stringify(database));
 
             return deletedBooks[0] as Book;
         } catch (error) {

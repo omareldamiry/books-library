@@ -84,8 +84,206 @@
                 "id": 0,
                 "firstname": "Lorem",
                 "lastname": "Ipsum",
-                "books": [0]
+                "books": [
+                    0
+                ]
             }
         ]
+    },
+    "default": {
+        "library": {
+            "books": [
+                {
+                    "id": 0,
+                    "title": "A book",
+                    "language": "en",
+                    "pages": 70,
+                    "isbn": 1234567890,
+                    "authors": [
+                        0
+                    ]
+                },
+                {
+                    "id": 1,
+                    "title": "Second book",
+                    "language": "en",
+                    "pages": 70,
+                    "isbn": 1234567890,
+                    "authors": [
+                        0
+                    ]
+                },
+                {
+                    "id": 2,
+                    "title": "Third book",
+                    "language": "en",
+                    "pages": 70,
+                    "isbn": 1234567890,
+                    "authors": [
+                        0
+                    ]
+                },
+                {
+                    "id": 3,
+                    "title": "Forth book",
+                    "language": "en",
+                    "pages": 70,
+                    "isbn": 1234567890,
+                    "authors": [
+                        0
+                    ]
+                },
+                {
+                    "id": 4,
+                    "title": "Fifth book",
+                    "language": "en",
+                    "pages": 70,
+                    "isbn": 1234567890,
+                    "authors": [
+                        0
+                    ]
+                },
+                {
+                    "id": 5,
+                    "title": "Sixth book",
+                    "language": "en",
+                    "pages": 70,
+                    "isbn": 1234567890,
+                    "authors": [
+                        0
+                    ]
+                },
+                {
+                    "id": 6,
+                    "title": "Seventh book",
+                    "language": "en",
+                    "pages": 70,
+                    "isbn": 1234567890,
+                    "authors": [
+                        0
+                    ]
+                }
+            ],
+            "authors": [
+                {
+                    "id": 0,
+                    "firstname": "John",
+                    "lastname": "Doe"
+                }
+            ],
+            "borrowers": [
+                {
+                    "id": 0,
+                    "firstname": "Lorem",
+                    "lastname": "Ipsum",
+                    "books": [
+                        0
+                    ]
+                }
+            ]
+        },
+        "default": {
+            "library": {
+                "books": [
+                    {
+                        "id": 0,
+                        "title": "A book",
+                        "language": "en",
+                        "pages": 70,
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    },
+                    {
+                        "id": 1,
+                        "title": "Second book",
+                        "language": "en",
+                        "pages": 70,
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "title": "Third book",
+                        "language": "en",
+                        "pages": 70,
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    },
+                    {
+                        "id": 3,
+                        "title": "Forth book",
+                        "language": "en",
+                        "pages": 70,
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    },
+                    {
+                        "id": 4,
+                        "title": "Fifth book",
+                        "language": "en",
+                        "pages": 70,
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    },
+                    {
+                        "id": 5,
+                        "title": "Sixth book",
+                        "language": "en",
+                        "pages": 70,
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    },
+                    {
+                        "id": 6,
+                        "title": "Seventh book",
+                        "language": "en",
+                        "pages": 70,
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    },
+                    {
+                        "id": 7,
+                        "title": "Added to database",
+                        "pages": 50,
+                        "language": "en",
+                        "isbn": 1234567890,
+                        "authors": [
+                            0
+                        ]
+                    }
+                ],
+                "authors": [
+                    {
+                        "id": 0,
+                        "firstname": "John",
+                        "lastname": "Doe"
+                    }
+                ],
+                "borrowers": [
+                    {
+                        "id": 0,
+                        "firstname": "Lorem",
+                        "lastname": "Ipsum",
+                        "books": [
+                            0
+                        ]
+                    }
+                ]
+            }
+        }
     }
 }

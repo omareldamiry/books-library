@@ -8,9 +8,9 @@ const validateBook = (_req: express.Request, _res: express.Response, next: expre
     const isValidPages = book.pages >= 50;
     const isValidLanguage = book.language == "ar" || book.language == "en";
 
-    if(!isValidIsbn) _res.status(400).json({ message: "Invalid ISBN" });
-    if(!isValidPages) _res.status(400).json({ message: "Invalid number of pages" });
-    if(!isValidLanguage) _res.status(400).json({ message: "Invalid language" });
+    if (!isValidIsbn) _res.status(400).json({ message: "Invalid ISBN" });
+    if (!isValidPages) _res.status(400).json({ message: "Invalid number of pages" });
+    if (!isValidLanguage) _res.status(400).json({ message: "Invalid language" });
 
     next();
 };

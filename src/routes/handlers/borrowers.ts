@@ -26,26 +26,28 @@ const find = async (_req: express.Request, _res: express.Response) => {
 const create = async (_req: express.Request, _res: express.Response) => {
     try {
         const borrower = _req.body;
-        const newBorrower = store.create(borrower);
+        const newBorrower = await store.create(borrower);
         _res.json(newBorrower);
     } catch (error: any) {
         _res.status(400).json({ message: error.message });
     }
 };
+
 const update = async (_req: express.Request, _res: express.Response) => {
     try {
         const id = parseInt(_req.params.id);
         const borrower = _req.body;
-        const updatedBorrower = store.update(id, borrower);
+        const updatedBorrower = await store.update(id, borrower);
         _res.json(updatedBorrower);
     } catch (error: any) {
         _res.status(400).json({ message: error.message });
     }
 };
+
 const remove = async (_req: express.Request, _res: express.Response) => {
     try {
         const id = parseInt(_req.params.id);
-        const deletedBorrower = store.delete(id);
+        const deletedBorrower = await store.delete(id);
         _res.json(deletedBorrower);
     } catch (error: any) {
         _res.status(400).json({ message: error.message });
